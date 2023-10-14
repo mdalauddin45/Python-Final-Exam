@@ -110,10 +110,8 @@ class Admin(User):
     def set_bankruptcy(self, is_bankrupt):
         self.isBankrupt = is_bankrupt
 
-
-hello = User("Md slla Uddin","mdAla@gmail.com","Chittagong",'Sevingd',"12345")
 bank_admin = Admin()
-user1 = bank_admin.create_account("Md Ala Uddin", "mdAla@gmail.com", "Chittagong", 'Sevings',"12345")
+user1 = bank_admin.create_account("Md Ala Uddin", "mdala@gmail.com", "Chittagong", 'Sevings',"12345")
 user2 = bank_admin.create_account("Md kala Uddin", "mdkala@gmail.com", "Chittagong", 'Sevings',"12345")
 user3 = bank_admin.create_account("Md vala Uddin", "mdvala@gmail.com", "Chittagong", 'Sevings',"12345")
 
@@ -170,8 +168,12 @@ while True:
                         loan_amount = float(input("Enter the loan amount: $"))
                         user_account.take_loan(loan_amount)
                     elif user_choice == "6":
-                        recipient_id = int(input("Enter the recipient's User ID: "))
-                        recipient = next((user for user in bank_admin.users if user.account_number == recipient_id), None)
+                        recipient_id = int(input("Enter the recipient's Account Number: "))
+                        recipient = None
+                        for user in bank_admin.users:
+                            if user.account_number == recipient_id:
+                                recipient = user
+                                break
                         if recipient:
                             amount = float(input("Enter the transfer amount: $"))
                             user_account.money_transfer(recipient, amount)
@@ -216,7 +218,7 @@ while True:
                             loan_amount = float(input("Enter the loan amount: $"))
                             user_account.take_loan(loan_amount)
                         elif user_choice == "6":
-                            recipient_id = int(input("Enter the recipient's User ID: "))
+                            recipient_id = int(input("Enter the recipient's Account Number: "))
                             recipient = next((user for user in bank_admin.users if user.account_number == recipient_id), None)
                             if recipient:
                                 amount = float(input("Enter the transfer amount: $"))
